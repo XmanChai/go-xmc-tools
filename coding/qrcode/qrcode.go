@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"github.com/nfnt/resize"
 	qr "github.com/skip2/go-qrcode"
+	"go-xmc-tools/mime"
 	"image"
 	"image/color"
 	"image/draw"
+	"image/jpeg"
 	"image/png"
 	"io"
 	"log"
@@ -89,7 +91,7 @@ func (wl WithLogo) New() ([]byte, error) {
 	qc, err := qr.New(wl.Content, wl.RecoverLevel)
 	qc.BackgroundColor = wl.Background
 	qc.ForegroundColor = wl.Foreground
-	//psize := len(wl.Content)
+
 	if err != nil {
 		return nil, err
 	}
@@ -115,11 +117,16 @@ func (wl WithLogo) New() ([]byte, error) {
 	case "multipart.sectionReadCloser":
 		b := bytes.NewBuffer(nil)
 		_, _ = io.Copy(b, wl.LogoStream.(io.Reader))
-		ori, _ := _convertByteToImage(b.Bytes())
-		src, _ = _resizeImage(ori, uint(wl.Size), len(wl.Content))
+		ori, err := _convertByteToImage(b.Bytes())
+		if err != nil {
+			return nil, err
+		}
+		src, err = _resizeImage(ori, uint(wl.Size), len(wl.Content))
+		if err != nil {
+			return nil, err
+		}
 	}
-	//src = wl.LogoStream.(image.Image)
-	//fmt.Println(src)
+
 	dstBound := dst.Bounds()
 	srcBound := src.Bounds()
 	dstRect := image.Rect((dstBound.Max.X/2)-(srcBound.Max.X/2), (dstBound.Max.X/2)-(srcBound.Max.X/2), (dstBound.Max.X/2)+(srcBound.Max.X/2), (dstBound.Max.X/2)+(srcBound.Max.X/2))
@@ -161,8 +168,21 @@ func (wlf WithLogoFrame) New() ([]byte, error) {
 	return nil, nil
 }
 
+// _convertByteToImage 函数名称
+//  @描述: 转换字节流为image.Image
+//  @参数 is
+//  @返回值 image.Image
+//  @返回值 error
+//
 func _convertByteToImage(is []byte) (image.Image, error) {
-	i, _, err := image.Decode(bytes.NewReader(is))
+	var i image.Image
+	var err error
+	switch mime.GetFileType(is[:10]) {
+	case "png":
+		i, _, err = image.Decode(bytes.NewReader(is))
+	case "jpg":
+		i, err = jpeg.Decode(bytes.NewReader(is))
+	}
 	if err != nil {
 		return nil, err
 	}
