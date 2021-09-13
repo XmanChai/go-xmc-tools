@@ -15,6 +15,7 @@ func init() {
 	mimeMap.Store("89504e470d0a1a0a0000", "png")  //PNG (png)
 	mimeMap.Store("47494638396126026f01", "gif")  //GIF (gif)
 	mimeMap.Store("49492a00227105008037", "tif")  //TIFF (tif)
+	mimeMap.Store("3c3f786d6c2076657273", "svg")  //TIFF (tif)
 	mimeMap.Store("424d228c010000000000", "bmp")  //16色位图(bmp)
 	mimeMap.Store("424d8240090000000000", "bmp")  //24位位图(bmp)
 	mimeMap.Store("424d8e1b030000000000", "bmp")  //256色位图(bmp)
