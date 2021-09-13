@@ -11,7 +11,7 @@ import (
 	svg "github.com/ajstarks/svgo"
 	"github.com/nfnt/resize"
 	qr "github.com/skip2/go-qrcode"
-	"go-xmc-tools/mime"
+	"github.com/xmanchai/go-xmc-tools/mime"
 	"image"
 	"image/color"
 	"image/draw"
