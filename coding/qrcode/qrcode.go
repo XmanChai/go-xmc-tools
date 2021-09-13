@@ -1,17 +1,17 @@
-// Package xmc_qrcode
+// Package qrcode
 // @Description: 利用skip2的QRCODE库生成矩阵，并输出PNG,JPEG,SVG
 //TODO 建立命令行应用 补充带附加外框的函数
-package xmc_qrcode
+package qrcode
 
 import (
 	"bytes"
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"gitee.com/xmanchai/go-xmc-tools/mime"
 	svg "github.com/ajstarks/svgo"
 	"github.com/nfnt/resize"
 	qr "github.com/skip2/go-qrcode"
-	"github.com/xmanchai/go-xmc-tools/mime"
 	"image"
 	"image/color"
 	"image/draw"
