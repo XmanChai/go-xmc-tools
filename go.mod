@@ -1,4 +1,4 @@
-module go-xmc-tools
+module github.com/xmanchai/go-xmc-tools
 
 go 1.16
 
