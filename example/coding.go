@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	xmcQrcode "go-xmc-tools/coding/qrcode"
+	xmcQrcode "github.com/xmanchai/go-xmc-tools/coding/qrcode"
 	"image/color"
 	"io/ioutil"
 	"log"
